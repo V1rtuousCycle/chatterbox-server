@@ -61,16 +61,12 @@ describe('Node Server Request Listener Function', function() {
       username: 'Jono',
       message: 'Do my bidding!'
     };
-    var req = new stubs.request('/classes/messages', 'POST', stubMsg);
+    var req = new stubs.request('/classes/room', 'POST', stubMsg);
     var res = new stubs.response();
 
     handler.requestHandler(req, res);
-
-    // Expect 201 Created response status
     expect(res._responseCode).to.equal(201);
 
-    // Testing for a newline isn't a valid test
-    // TODO: Replace with with a valid test
     expect(res._data).to.equal(JSON.stringify(stubMsg));
     expect(res._ended).to.equal(true);
   });
@@ -113,6 +109,28 @@ describe('Node Server Request Listener Function', function() {
       function() { return res._ended; },
       function() {
         expect(res._responseCode).to.equal(404);
+      });
+  });
+
+  it('Should have a roomname if its included in the message', function() {
+    var stubMsg = {
+      username: 'Jono',
+      message: 'Do my bidding!',
+      roomname: 'NBA'
+    };
+    var req = new stubs.request('/classes/messages', 'POST', stubMsg);
+    var res = new stubs.response();
+
+    handler.requestHandler(req, res);
+
+    waitForThen(
+      function() { return res._ended; },
+      function() {
+        expect(res._responseCode).to.equal(201);
+        var messages = JSON.parse(res._data).results;
+        expect(messages.length).to.be.above(0);
+        expect(messages[0].roomname).to.equal('NBA');
+        expect(res._ended).to.equal(true);
       });
   });
 

@@ -28,7 +28,7 @@ app.fetch = function() {
     url: "http://127.0.0.1:5421/classes/messages",
     type: "GET",
     contentType: "application/json",
-    data: "order=-createdAt", //REQUEST FROM NEWEST
+    //REQUEST FROM NEWEST
     success: function(data) {
       console.log("fetch request", data);
       var roomNames = [];
