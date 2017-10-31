@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>chatterbox</title>
+    <link rel="stylesheet" href="styles/styles.css">
+
+    <!-- dependencies -->
+    <script src="bower_components/underscore/underscore.js"></script>
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/validator-js/validator.js"></script>
+    <script>
+      // YOU DO NOT NEED TO EDIT THIS CODE
+      if (!/(&|\?)username=/.test(window.location.search)) {
+        var newSearch = window.location.search;
+        if (newSearch !== '' & newSearch !== '?') {
+          newSearch += '&';
+        }
+        newSearch += 'username=' + (prompt('What is your name?') || 'anonymous');
+        window.location.search = newSearch;
+      }
+    </script>
+    <!-- your scripts -->
+
+  </head>
+  <body>
+    <div id="main">
+      <h1>chatterbox</h1>
+      <button class='homeRoom'>Main Room</button>
+      <div id="roomSelect"><p></p></div>
+      <div class="roomCreation">
+        <input id="roomName" type="text" placeholder="Single word rooms allowed only..."/>
+        <button id="createRoom">Create Room</button>
+      </div>
+    </div>
+    <div class="sendMessagesContainer">
+      <input id="sendMessage" type="text" placeholder="Please enter your non-offensive message"/>
+      <button id="sendMessageButton">Send</button>
+    </div>
+    <div id="chats">
+      <div id='All-User__Sidebar'></div>
+      <div id='Friends__Sidebar'></div>
+    </div>
+
+    <script src="env/config.js"></script>
+    <script src="scripts/app.js"></script>
+  </body>
+</html>
